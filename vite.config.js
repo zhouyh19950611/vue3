@@ -49,5 +49,35 @@ export default defineConfig(({command,mode})=>{
                 }
             }
         },
+        // 打包选项
+        build: {
+            outDir: 'dist', // 打包后输出的目录
+            // 提高报错的阈值
+            chunkSizeWarningLimit:1000,
+            // 开启sourceMap
+            sourcemap: mode==='development',
+            // 开启代码压缩
+            minify: "terser",
+            // 开启 gzip 压缩
+            gzip: true,
+            terserOptions: {
+                compress: {
+                  drop_console: true,
+                  drop_debugger: true
+                }
+            },
+            // 关闭多页
+            rollupOptions: {
+                output: {
+                    entryFileNames: '[name].js',
+                    chunkFileNames: '[name].js',
+                    manualChunks(id) {
+                        if (id.includes('node_modules')) {
+                          return id.toString().split('node_modules/')[1].split('/')[0].toString()
+                        }
+                    }
+                }
+            },
+        }
     }
 })

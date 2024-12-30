@@ -1,6 +1,5 @@
 <template>
   <div class="page">
-    <h1 ref="titleRef">vue-grid-layout可拖拽式布局</h1>
     <grid-layout
       :layout.sync="layout"
       :col-num="12"
@@ -64,21 +63,27 @@ const sizeAutoChange = (index) => {
   chartRef.sizeChange();
 };
 function testWorker() {
-  const worker1 = new Worker(new URL("@/utils/worker1.js", import.meta.url));
-  worker1.onmessage = function (e) {
+  const worker = new Worker(new URL("@/utils/worker.js", import.meta.url));
+  worker.onmessage = (e) => {
     console.log(e);
   };
 }
+
 onMounted(() => {
   testWorker();
 });
+/**
+ * 总宽:10.8m
+ * 总长:11m
+ * 承重柱:.3m*.3m
+ * 南房:3.2m*5m
+ * 北房:3.2m*4m
+ * 门厅:2*3.6
+ * 一层高:3.2m
+ * 二层高:3m
+ */
 </script>
 <style scoped>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
 .vue-grid-layout {
   background: #eee;
 }

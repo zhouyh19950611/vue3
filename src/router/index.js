@@ -20,15 +20,7 @@ const routes = [
                 path:"/home",
                 name: "home",
                 meta:{ title: "首页" },
-                component: ()=>import("@/views/home"),
-                children:[
-                    {
-                        path:"/home/detail",
-                        name: "detail",
-                        meta:{ title: "详情" ,parent: "home"},
-                        component: ()=>import("@/views/home/detail"),
-                    },
-                ]
+                component: ()=>import("@/views/home")
             },
             {
                 path:"/numeral",

@@ -1,1 +1,0 @@
-self.postMessage('进行多线程111')

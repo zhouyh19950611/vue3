@@ -43,7 +43,7 @@ function setThemeColor(color) {
 // 中英文切换
 const { proxy } = getCurrentInstance();
 function language() {
-  let lan = localStorage.getItem("LANGUAGE") == "zh" ? "en" : "zh";
+  let lan = localStorage.getItem("LANGUAGE") === "zh" ? "en" : "zh";
   localStorage.setItem("LANGUAGE", lan);
   proxy.$i18n.locale = lan;
 }

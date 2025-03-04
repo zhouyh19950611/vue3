@@ -10,20 +10,21 @@ import SvgIcon from '@/components/SvgIcon'
 import validate from '@/utils/validate'
 import { deepClone } from '@/utils/deepClone'
 import { i18n } from '@/lang/index.js';
-
+import direactives from './direactives'
 import {createPinia} from 'pinia'
-import VueGridLayout from 'vue-grid-layout' // 引入layout
+import VueGridLayout from 'vue-grid-layout'
 const pinia = createPinia()
 
 const app = createApp(App)
+
+app.config.globalProperties.$deepClone = deepClone
 
 app.use(router)
 app.use(pinia)
 app.use(i18n)
 app.use(validate)
 app.use(VueGridLayout)
+app.use(direactives)
 
-
-app.config.globalProperties.$deepClone = deepClone
 app.component('SvgIcon', SvgIcon)
 app.mount('#app')

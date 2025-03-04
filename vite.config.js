@@ -4,6 +4,7 @@ import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import { viteMockServe } from 'vite-plugin-mock'  // 引入 mock 插件提供的方法
+import { visualizer } from 'rollup-plugin-visualizer'
 
 export default defineConfig(({command,mode})=>{
     console.log('command', command)
@@ -23,6 +24,12 @@ export default defineConfig(({command,mode})=>{
                 mockPath:'mock',
                 localEnabled:command === 'serve',
             }),
+            visualizer({
+                open: true,  // true 打包完自动打开分析页面，false 不会自动弹出
+                filename: "stats.html", // 分析图生成的文件名
+                gzipSize: true, // 是否统计并显示gzip
+                brotliSize: true, // 是否统计并显示brotli
+            })
         ],
         resolve: {
             extensions: ['.js', '.jsx', '.ts', '.tsx', '.json', '.vue'],

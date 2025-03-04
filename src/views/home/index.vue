@@ -68,7 +68,6 @@ function testWorker() {
     console.log(e);
   };
 }
-
 onMounted(() => {
   testWorker();
 });

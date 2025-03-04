@@ -1,7 +1,7 @@
 <script setup>
 import useSettingStore from "@/store/setting";
 import { HexToRgb } from "@/utils/tool";
-import Breadcrumb from "@/components/Breadcrumb";
+import Breadcrumb from "../breadcrumb";
 import { Sunny, Moon } from "@element-plus/icons-vue";
 
 // 展开收起

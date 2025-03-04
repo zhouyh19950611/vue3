@@ -1,5 +1,9 @@
 <template>
-  <div ref="lineRef" class="line-chart"></div>
+  <div ref="lineRef" class="line-chart">
+    <svg width="200" height="200" viewBox="0 0 200 200">
+      <path id="arc" d="M 100,100 A 50,50 0 0,1 150,150" stroke="black" fill="none" />
+    </svg>
+  </div>
 </template>
 <script setup>
 import * as echarts from "echarts"; //引入图标
@@ -30,11 +34,11 @@ onMounted(() => {
         },
       ],
     };
-    echart.setOption(option);
-    setTimeout(() => {
-      //由于网格布局拖拽放大缩小图表不能自适应，这里设置一个定时器使得echart加载为一个异步过程
-      echart.resize();
-    }, 0);
+    // echart.setOption(option);
+    // setTimeout(() => {
+    //   //由于网格布局拖拽放大缩小图表不能自适应，这里设置一个定时器使得echart加载为一个异步过程
+    //   echart.resize();
+    // }, 0);
   });
 });
 const sizeChange = () => {
@@ -54,5 +58,22 @@ defineExpose({
     width: 100%;
     height: 100% !important;
   }
+}
+
+@keyframes drawArc {
+  0% {
+    stroke-dasharray: 0, 1000;
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dasharray: 1000, 1000;
+    stroke-dashoffset: -1000;
+  }
+}
+
+#arc {
+  stroke-dasharray: 1000; /* 总长度 */
+  stroke-dashoffset: 1000; /* 开始隐藏 */
+  animation: drawArc 3s linear forwards; /* 动画效果 */
 }
 </style>

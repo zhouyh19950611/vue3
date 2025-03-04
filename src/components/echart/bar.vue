@@ -2,33 +2,14 @@
   <div ref="lineRef" class="line-chart"></div>
 </template>
 <script setup>
-import * as echarts from "echarts"; //引入图标
+import "echarts-gl";
+import * as echarts from "echarts"; //引入
+import option from "./3D.js";
 const lineRef = ref();
-let echart;
+
 onMounted(() => {
   nextTick(() => {
-    echart = echarts.init(lineRef.value);
-    const option = {
-      gird: {
-        left: 0,
-        top: 0,
-        right: 0,
-        bottom: 0,
-      },
-      xAxis: {
-        type: "category",
-        data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-      },
-      yAxis: {
-        type: "value",
-      },
-      series: [
-        {
-          data: [120, 200, 150, 80, 70, 110, 130],
-          type: "bar",
-        },
-      ],
-    };
+    let echart = echarts.init(lineRef.value);
     echart.setOption(option);
     setTimeout(() => {
       //由于网格布局拖拽放大缩小图表不能自适应，这里设置一个定时器使得echart加载为一个异步过程

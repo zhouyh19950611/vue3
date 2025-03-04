@@ -1,6 +1,6 @@
 <script setup>
-import Menu from "@/components/Menu";
-import Header from "@/components/Header";
+import Menu from "./com/menu";
+import Header from "./com/header";
 import { getMenu } from "@/api/common";
 const menuList = ref([]);
 const getMenuList = async () => {

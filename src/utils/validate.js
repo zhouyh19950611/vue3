@@ -12,6 +12,7 @@ export default {
             return reg.test(val)
         }
         // 密码
+        // 规则 6-16位字母数字组合
         app.config.globalProperties.$password = (val) => {
             let reg = /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{6,16}$/
             return reg.test(val)

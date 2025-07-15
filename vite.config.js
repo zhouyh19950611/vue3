@@ -25,7 +25,7 @@ export default defineConfig(({command,mode})=>{
                 localEnabled:command === 'serve',
             }),
             visualizer({
-                open: true,  // true 打包完自动打开分析页面，false 不会自动弹出
+                open: false,  // true 打包完自动打开分析页面，false 不会自动弹出
                 filename: "stats.html", // 分析图生成的文件名
                 gzipSize: true, // 是否统计并显示gzip
                 brotliSize: true, // 是否统计并显示brotli
@@ -60,8 +60,9 @@ export default defineConfig(({command,mode})=>{
         build: {
             outDir: 'dist', // 打包后输出的目录
             // 提高报错的阈值
+            
             chunkSizeWarningLimit:1000,
-            // 开启sourceMap
+            // 开发环境开启sourceMap 生产环境不建议开启
             sourcemap: mode==='development',
             // 开启代码压缩
             minify: "terser",
@@ -69,8 +70,8 @@ export default defineConfig(({command,mode})=>{
             gzip: true,
             terserOptions: {
                 compress: {
-                  drop_console: true,
-                  drop_debugger: true
+                  drop_console: true, //删除打印信息
+                  drop_debugger: true //删除debugger
                 }
             },
             // 关闭多页

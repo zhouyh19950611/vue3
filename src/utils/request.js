@@ -25,6 +25,7 @@ request.interceptors.request.use(
 request.interceptors.response.use(
     response =>{
         loadingInstance.close()
+        loadingInstance = null
         if(response.data.code === 200){
             return Promise.resolve(response.data)
         }else if(response.data.code === 401){

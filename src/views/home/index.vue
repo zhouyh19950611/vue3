@@ -39,18 +39,16 @@
 <script setup>
 import useProject from "@/hooks/useProject";
 const { num, add } = useProject();
-import Line from "@/components/echart/line.vue";
-import Bar from "@/components/echart/bar.vue";
+import Echart from "@/components/echart/index.vue";
 
 let component = shallowReactive({
-  Line,
-  Bar,
+  Echart,
 });
 const layout = ref([
   //每一个 grid-item 的属性
-  { x: 0, y: 0, w: 4, h: 4, i: "0", static: false, name: "Line" },
-  { x: 0, y: 4, w: 4, h: 4, i: "1", static: false, name: "Bar" },
-  { x: 0, y: 8, w: 4, h: 4, i: "2", static: false, name: "Line" },
+  { x: 0, y: 0, w: 4, h: 4, i: "0", static: false, name: "Echart" },
+  { x: 0, y: 4, w: 4, h: 4, i: "1", static: false, name: "Echart" },
+  { x: 0, y: 8, w: 4, h: 4, i: "2", static: false, name: "Echart" },
 ]);
 //是否可拖拽
 const draggable = ref(true);
@@ -58,29 +56,26 @@ const draggable = ref(true);
 const resizable = ref(true);
 // 获取动态子组件
 const tempRefs = reactive([]);
+
 const sizeAutoChange = (index) => {
   const chartRef = tempRefs[index];
   chartRef.sizeChange();
 };
-function testWorker() {
-  const worker = new Worker(new URL("@/utils/worker.js", import.meta.url));
-  worker.onmessage = (e) => {
-    console.log(e);
-  };
-}
-onMounted(() => {
-  testWorker();
-});
-/**
- * 总宽:10.8m
- * 总长:11m
- * 承重柱:.3m*.3m
- * 南房:3.2m*5m
- * 北房:3.2m*4m
- * 门厅:2*3.6
- * 一层高:3.2m
- * 二层高:3m
- */
+// let worker = null
+// function testWorker() {
+//   worker = new Worker(new URL("@/utils/worker.js", import.meta.url));
+//   worker.onmessage = (e) => {
+//     console.log('收到结果',e.data);
+//   };
+//   worker.postMessage(1000000)
+// }
+
+// onMounted(() => {
+//   testWorker();
+// });
+// onUnmounted(() => {
+//   worker.terminate(); //组件销毁终止Worker
+// });
 </script>
 <style scoped>
 .vue-grid-layout {
@@ -93,4 +88,6 @@ onMounted(() => {
 .vue-grid-item .static {
   background: #cce;
 }
+
+
 </style>

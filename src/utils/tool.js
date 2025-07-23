@@ -11,9 +11,10 @@ function FormatDateTime(timeStamp, format = "yyyy.MM.dd hh:mm:ss") {
         m: date.getMinutes(),
         s: date.getSeconds()
     };
-    // return format.replace(/(y+|M+|d+|h+|m+|s+)/g, function (v) {
-    //     return ("0" + eval('z.' + v.slice(-1))).slice(-(v.length > 2 ? v.length : 2))
-    // });
+    return format.replace(/(y+|M+|d+|h+|m+|s+)/g, function (v) {
+        // return ("0" + eval('z.' + v.slice(-1))).slice(-(v.length > 2 ? v.length : 2))
+        return ("0" + z[v.slice(-1)]).slice(-(v.length > 2 ? v.length : 2))
+    });
 }
 // 保留fix位小数
 function KeepDecimals(num, fix) {

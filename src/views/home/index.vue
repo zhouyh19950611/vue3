@@ -34,6 +34,7 @@
       <div v-for="o in 4" :key="o" class="text item">{{ "List item " + o }}</div>
     </el-card>
     <router-view></router-view> -->
+    <el-button @click="save">indexedDB存储</el-button>
   </div>
 </template>
 <script setup>
@@ -76,6 +77,75 @@ const sizeAutoChange = (index) => {
 // onUnmounted(() => {
 //   worker.terminate(); //组件销毁终止Worker
 // });
+function getIndexDB() {
+  const indexedDB =
+    window.indexedDB ||
+    window.mozIndexedDB ||
+    window.webkitIndexedDB ||
+    window.msIndexedDB ||
+    window.shimIndexedDB;
+    if (indexedDB){
+        return indexedDB
+    }
+    console.error("indexedDB not supported by this browser")
+    return null
+}
+const indexedDB = getIndexDB()
+const request = indexedDB.open("mydb", 1);
+const request2 = indexedDB.open("mydb2", 2);
+console.log(request)
+// onerror 处理
+request.onerror = (event) => console.error("IndexDB Error: ", event)
+// onupgradeneeded
+request.onupgradeneeded = () => {
+  // 获取数据库连接
+  const db = request.result;
+  // 定义一个新存储
+  const store = db.createObjectStore("todos", {
+    keyPath: "id",
+    autoIncrement: true,
+  });
+  // 指定一个属性作为索引
+  store.createIndex("todos_text", ["text"], {unique: false})
+};
+//onsuccess
+request.onsuccess = () => {
+    console.log("Database Connection Established")
+    // 获取数据库连接
+    const db = request.result
+    // 创建事务对象
+    const tx = db.transaction("todos", "readwrite")
+    // 创建一个与我们存储的事务
+    const todosStore = tx.objectStore("todos")
+    // 得到所有待办事项
+    const query = todosStore.getAll()
+    // 使用数据查询
+    query.onsuccess =  () => {
+        console.log("All Todos: ", query.result)
+        for (todo of query.result){
+            todos.push(todo.text)
+        }
+    }
+}
+function save(){
+      // 获取数据库连接
+    const db = request.result
+    // 创建事务对象
+    const tx = db.transaction("todos", "readwrite")
+    // 创建一个与我们存储的事务
+    const todosStore = tx.objectStore("todos")
+    // 得到所有待办事项
+    const query = todosStore.getAll()
+    // 使用数据查询
+    query.onsuccess =  () => {
+        console.log("All Todos: ", query.result)
+        for (todo of query.result){
+            todos.push(todo.text)
+        }
+        renderTodos()
+    }
+
+}
 </script>
 <style scoped>
 .vue-grid-layout {

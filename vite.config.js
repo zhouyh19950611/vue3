@@ -7,8 +7,8 @@ import { viteMockServe } from 'vite-plugin-mock'  // 引入 mock 插件提供的
 import { visualizer } from 'rollup-plugin-visualizer'
 
 export default defineConfig(({command,mode})=>{
-    console.log('command', command)
-    console.log('mode:',mode)
+    console.log('command', command) //serve 命令对应开发环境配置，build 命令对应生产环境配置。 ‌
+    console.log('mode:',mode)  // 表示当前项目模式（如 development、production），用于加载不同环境变量文件
     return{
         plugins: [
             vue(),
@@ -60,7 +60,7 @@ export default defineConfig(({command,mode})=>{
         build: {
             outDir: 'dist', // 打包后输出的目录
             // 提高报错的阈值
-            
+
             chunkSizeWarningLimit:1000,
             // 开发环境开启sourceMap 生产环境不建议开启
             sourcemap: mode==='development',

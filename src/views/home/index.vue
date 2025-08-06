@@ -34,7 +34,7 @@
       <div v-for="o in 4" :key="o" class="text item">{{ "List item " + o }}</div>
     </el-card>
     <router-view></router-view> -->
-    <el-button @click="save">indexedDB存储</el-button>
+    <el-button @click="save">indexedDB存储123</el-button>
   </div>
 </template>
 <script setup>
